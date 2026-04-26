@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Уведомление об изменении параметров - Форма №591/пр (редактируемая)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #e0e0e0;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 12pt;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .toolbar {
+            top: 20px;
+            background: white;
+            padding: 10px 20px;
+            border-radius: 40px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            z-index: 100;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .toolbar button {
+            background-color: #2c3e50;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            font-size: 12pt;
+            font-weight: bold;
+            border-radius: 30px;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        .toolbar button:hover {
+            background-color: #1a2a3a;
+        }
+
+        .toolbar .edit-btn {
+            background-color: #c0392b;
+        }
+
+        .toolbar .edit-btn:hover {
+            background-color: #a93226;
+        }
+
+        .document-card {
+            max-width: 1100px;
+            width: 100%;
+            background: white;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            padding: 20px 35px 50px 35px;
+            margin-bottom: 30px;
+        }
+
+        [contenteditable="true"] {
+            background-color: #fff0f0;
+            border: 1px solid #e74c3c;
+            padding: 2px 4px;
+            border-radius: 4px;
+            min-width: 80px;
+            display: inline-block;
+            cursor: text;
+            transition: 0.1s;
+        }
+
+        [contenteditable="true"]:hover {
+            background-color: #ffe0e0;
+            outline: none;
+        }
+
+        [contenteditable="true"]:focus {
+            background-color: #fff0f0;
+            outline: 2px solid #e74c3c;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 12px 0;
+            font-size: 12pt;
+        }
+
+        td,
+        th {
+            border: 1px solid black;
+            padding: 8px 10px;
+            vertical-align: top;
+            line-height: 1.3;
+        }
+
+        .header-appendix {
+            text-align: right;
+            font-size: 12pt;
+        }
+
+        .doc-main-title {
+            font-weight: bold;
+            font-size: 13pt;
+            text-align: center;
+            margin: 25px 0 20px 0;
+        }
+
+        .line-under-department {
+            border-bottom: 1px solid black;
+            margin-top: 5px;
+            width: 100%;
+        }
+
+        .fixed-line {
+            border-bottom: 1px solid black;
+            width: 100%;
+            margin: 10px 0 5px 0;
+        }
+
+        .small-text {
+            font-size: 9pt;
+            line-height: 1.2;
+            color: #333;
+        }
+
+        .department-name {
+            text-align: center;
+            font-weight: bold;
+            margin: 10px 0 0 0;
+            font-size: 12pt;
+        }
+
+        .department-description {
+            text-align: center;
+            font-size: 10pt;
+            margin-bottom: 25px;
+            line-height: 1.3;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .bold {
+            font-weight: bold;
+        }
+
+        .section-title {
+            font-weight: bold;
+            text-align: center;
+            margin: 20px 0 8px 0;
+            font-size: 12pt;
+        }
+
+        .date-wrapper {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 25px;
+        }
+
+        .date-line {
+            display: flex;
+            align-items: baseline;
+            border-bottom: 1px solid black;
+            padding-bottom: 4px;
+        }
+
+        .page-break {
+            page-break-before: always;
+            margin-top: 20px;
+        }
+
+        .page-break-scheme {
+            page-break-before: always;
+        }
+
+        .scheme-frame {
+            border: 2px dashed #999;
+            width: 80%;
+            margin: 20px auto;
+            min-height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f9f9f9;
+            position: relative;
+            flex-direction: column;
+            gap: 15px;
+            padding: 15px;
+            cursor: pointer;
+        }
+
+        .scheme-frame img {
+            max-width: 100%;
+            max-height: 300px;
+            object-fit: contain;
+            pointer-events: none;
+        }
+
+        .signature-group {
+            margin-top: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            flex-wrap: wrap;
+        }
+
+        .signature-item {
+            text-align: center;
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .signature-line {
+            border-bottom: 1px solid black;
+            width: 80%;
+            margin: 0 auto 8px auto;
+        }
+
+        .mp {
+            text-align: left;
+            margin-top: 35px;
+        }
+
+        .btn-pdf {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+
+            .toolbar {
+                display: none;
+            }
+
+            .document-card {
+                box-shadow: none;
+                padding: 0.5cm;
+                max-width: 100%;
+            }
+
+            [contenteditable="true"] {
+                background-color: transparent !important;
+                border: none !important;
+                padding: 0 !important;
+                color: black !important;
+            }
+
+            .scheme-frame {
+                border: 1px solid black;
+                cursor: default;
+            }
+
+            .page-break-scheme {
+                page-break-before: always;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="toolbar">
+        <a href="index.html" style="text-decoration: none;"><button style="background-color: #2980b9;">🏠 На главную</button></a>
+        <button id="toggleEditBtn" class="edit-btn">✏️ Редактировать поля</button>
+        <button id="downloadPdfBtn">📄 Скачать PDF</button>
+    </div>
+
+    <div class="document-card" id="pdfContent">
+        <div class="header-appendix">
+            <p>Приложение № 4<br>к приказу Министерства строительства<br> и жилищно-коммунального
+                хозяйства<br>Российской Федерации<br>от 19 сентября 2018 г. № 591/пр</p>
+        </div>
+
+        <div class="doc-main-title">
+            Уведомление об изменении параметров планируемого строительства или реконструкции объекта
+            индивидуального жилищного строительства или садового дома
+        </div>
+
+        <div class="date-wrapper">
+            <div class="date-line">
+                <span>« </span><span contenteditable="true">22&nbsp;</span><span> » </span>
+                <span contenteditable="true">декабря</span><span> </span>
+                <span>&nbsp;&nbsp;20</span><span contenteditable="true">25</span><span> г.</span>
+            </div>
+        </div>
+
+        <div class="department-name"><span contenteditable="true">Департамент архитектуры и градостроительства города
+                Севастополя</span></div>
+        <div class="line-under-department"></div>
+        <div class="department-description">(наименование уполномоченного на выдачу разрешений на строительство
+            федерального органа исполнительной власти, органа исполнительной власти субъекта Российской Федерации,
+            органа местного самоуправления)</div>
+
+
+
+
+        <div class="bold text-center" style="margin: 20px 0 8px 0;">1. Сведения о застройщике</div>
+        <table>
+            <tr>
+                <td style="width:10%">1.1</td>
+                <td width="45%">Сведения о физическом лице, в случае если застройщиком является физическое лицо:</td>
+                <td width="40%"></td>
+            </tr>
+            <tr>
+                <td>1.1.1</td>
+                <td>Фамилия, имя, отчество (при наличии)</td>
+                <td><span contenteditable="true" data-field="fullname">Иванова Иванна Ивановна</span></td>
+            </tr>
+            <tr>
+                <td>1.1.2</td>
+                <td>Место жительства</td>
+                <td><span contenteditable="true">город Севастополь, ул. Маковая/Полынная, д. 2/3</span></td>
+            </tr>
+            <tr>
+                <td>1.1.3</td>
+                <td>Реквизиты документа, удостоверяющего личность</td>
+                <td><span contenteditable="true">паспорт гражданина РФ Серия 09 14 № 292199, выдан УФМС России по г.
+                        Севастополю 16.10.2014 года (920-001)</span></td>
+            </tr>
+            <tr>
+                <td>1.2</td>
+                <td colspan="2">Сведения о юридическом лице, в случае если застройщиком является юридическое лицо:</td>
+            </tr>
+            <tr>
+                <td>1.2.1</td>
+                <td>Наименование</td>
+                <td><span contenteditable="true"></span></td>
+            </tr>
+            <tr>
+                <td>1.2.2</td>
+                <td>Место нахождения</td>
+                <td><span contenteditable="true"></span></td>
+            </tr>
+            <tr>
+                <td>1.2.3</td>
+                <td>Государственный регистрационный номер записи</td>
+                <td><span contenteditable="true"></span></td>
+            </tr>
+            <tr>
+                <td>1.2.4</td>
+                <td>Идентификационный номер налогоплательщика</td>
+                <td><span contenteditable="true"></span></td>
+            </tr>
+        </table>
+
+        <div class="page-break-scheme"></div>
+
+        <div class="section-title">2. Сведения о земельном участке</div>
+        <table>
+            <tr>
+                <td width="10%">2.1</td>
+                <td width="45%">Кадастровый номер земельного участка (при наличии)</td>
+                <td width="40%"><span contenteditable="true">91:21:060303:731</span></td>
+            </tr>
+            <tr>
+                <td>2.2</td>
+                <td>Адрес или описание местоположения земельного участка</td>
+                <td><span contenteditable="true">Республика Крым, г. Ялта, пгт Массандра, ЖСТ «Ают», уч. 25</span></td>
+            </tr>
+            <tr>
+                <td>2.3</td>
+                <td>Сведения о праве застройщика на земельный участок<br>(правоустанавливающие документы)</td>
+                <td><span contenteditable="true">Собственность № 91:21:060132:702-91/012/2024-1 от 01.11.2025 года.
+                        Свидетельство о праве на наследство по закону от 22.01.2011 года</span></td>
+            </tr>
+            <tr>
+                <td>2.4</td>
+                <td>Сведения о наличии прав иных лиц на земельный участок (при наличии)</td>
+                <td><span contenteditable="true">Отсутствуют</span></td>
+            </tr>
+            <tr>
+                <td>2.5</td>
+                <td>Сведения о виде разрешенного использования земельного участка</td>
+                <td><span contenteditable="true">Для индивидуального жилищного строительства</span></td>
+            </tr>
+        </table>
+
+        <div class="section-title">3. Сведения об изменении параметров планируемого строительства
+            или реконструкции объекта индивидуального жилищного строительства
+            или садового дома
+        </div>
+        <!-- <p class="small-text" style="margin-bottom: 10px;">Заполняются только те параметры, в которые вносятся изменения
+        </p> -->
+        <table id="changes-table">
+            <thead>
+                <tr>
+                    <th style="width:10%">№</th>
+                    <th style="width:35%">Наименование параметра</th>
+                    <th style="width:25%">Значение, указанное в ранее направленном уведомлении</th>
+                    <th style="width:30%">Новое значение</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>3.1</td>
+                    <td>Количество надземных этажей</td>
+                    <td><span contenteditable="true">1</span></td>
+                    <td><span contenteditable="true">2</span></td>
+                </tr>
+                <tr>
+                    <td>3.2</td>
+                    <td>Высота (м)</td>
+                    <td><span contenteditable="true">5 м</span></td>
+                    <td><span contenteditable="true">8 м</span></td>
+                </tr>
+                <tr>
+                    <td>3.3</td>
+                    <td>Отступы от границ земельного участка</td>
+                    <td><span contenteditable="true">Север 5 м, Восток 3 м, Юг 1 м, Запад 8 м</span></td>
+                    <td><span contenteditable="true">Север 4.9 м, Восток 3.0 м, Юг 3.0 м, Запад 15.4 м</span></td>
+                </tr>
+                <tr>
+                    <td>3.4</td>
+                    <td>Площадь застройки (кв. м)</td>
+                    <td><span contenteditable="true">120 кв. м</span></td>
+                    <td><span contenteditable="true">150 кв. м</span></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="page-break-scheme"></div>
+
+        <div class="section-title">4. Схематичное изображение планируемого к строительству или реконструкции объекта
+            капитального строительства на земельном участке (в случае если изменились значения параметров планируемого
+            строительства или реконструкции объекта индивидуального жилищного строительства или садового дома,
+            предусмотренные пунктом 3.3 Формы настоящего уведомления об изменении параметров планируемого строительства
+            или реконструкции объекта индивидуального жилищного строительства или садового дома)</div>
+        <div class="scheme-frame" id="schemeFrame">
+            <div style="text-align: center;">🖼️ Нажмите на эту область, чтобы загрузить схему после изменений</div>
+        </div>
+
+        <div style="margin-top: 15px;">
+            <p><b>Условные обозначения:</b></p>
+            <p><span style="color:red;">■</span> — контур индивидуального жилого дома (1-2 этажи)</p>
+            <p><span style="color:#1F4E79;">▬</span> — граница земельного участка</p>
+            <p><b>Параметры земельного участка и объекта:</b></p>
+            <p><span contenteditable="true">Площадь земельного участка = 600 кв.м</span></p>
+            <p><span contenteditable="true">Площадь застройки = 150 кв.м</span></p>
+            <p><span contenteditable="true">Коэффициент плотности застройки = 0.4 (40%)</span></p>
+            <p><span contenteditable="true">Количество этажей = 2 (0 подземных)</span></p>
+            <p><span contenteditable="true">Суммарная поэтажная площадь = 300 кв.м</span></p>
+            <p><span contenteditable="true">Максимальная высота = 8 м</span></p>
+            <p><span contenteditable="true">Сервитуты отсутствуют</span></p>
+        </div>
+
+        <div class="page-break"></div>
+
+        <p>Почтовый адрес и (или) адрес электронной почты для связи:</p>
+        <div><span contenteditable="true">г. Севастополь, ул. Маковая/Полынная, д.333, posealt@gmail.com</span>
+            <div class="line-under-department"></div>
+        </div>
+
+        <p style="text-align: justify; margin-top: 15px;">
+            Уведомление о соответствии указанных в уведомлении о планируемых строительстве или
+            реконструкции объекта индивидуального жилищного строительства или садового дома
+            параметров объекта индивидуального жилищного строительства или садового дома
+            установленным параметрам и допустимости размещения объекта индивидуального жилищного
+            строительства или садового дома на земельном участке либо о несоответствии указанных в
+            уведомлении о планируемых строительстве или реконструкции объекта индивидуального
+            жилищного строительства или садового дома параметров объекта индивидуального жилищного
+            строительства или садового дома установленным параметрам и (или) недопустимости
+            размещения объекта индивидуального жилищного строительства или садового дома на
+            земельном участке прошу направить следующим способом:
+        </p>
+
+        <div class="line-under-department">&nbsp;<span contenteditable="true">нарочно в органе местного самоуправления
+                через МФЦ и на адрес электронной почты</span></div>
+        <p class="small-text" style="margin-top: 5px;">
+            (путем направления на почтовый адрес и (или) адрес электронной почты или нарочным в уполномоченном на выдачу
+            разрешений на строительство федеральном органе исполнительной власти, органе исполнительной власти субъекта
+            Российской Федерации или органе местного самоуправления, в том числе через многофункциональный центр)
+        </p>
+
+        <p style="margin-top: 20px;" class="bold">Настоящим уведомлением подтверждаю, что <span contenteditable="true"
+                data-field="object-type" style="text-decoration: underline;">объект индивидуального жилищного
+                строительства</span></p>
+
+        <p style="font-weight: bold;">не предназначен для раздела на самостоятельные объекты недвижимости.</p>
+
+        <p style="margin-top: 20px;" class="bold">Настоящим уведомлением я <span contenteditable="true"
+                data-field="fullname" style="text-decoration: underline;">Иванова Иванна Ивановна</span></p>
+        <p class="bold">даю согласие на обработку персональных данных (в случае если застройщиком является физическое
+            лицо).</p>
+
+        <div class="signature-group">
+            <div class="signature-item">
+                <div>&nbsp;</div>
+                <div class="signature-line job">&nbsp;</div>
+                <div>(должность, в случае если застройщиком является юридическое лицо)</div>
+            </div>
+            <div class="signature-item">
+                <div class="signature-line"></div>
+                <div contenteditable="true" data-field="initials">Иванова В.В.</div>
+                <div>(подпись)</div>
+            </div>
+            <div class="signature-item">
+                <div class="signature-line"></div>
+                <div contenteditable="true" data-field="initials">Иванова В.В.</div>
+                <div>(расшифровка)</div>
+            </div>
+        </div>
+
+        <div class="mp">
+            <p style="margin-left: 10%;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;М.П.<br>(при наличии)</p>
+        </div>
+
+        <p style="margin-top: 30px;">К настоящему уведомлению прилагаются:</p>
+        <ol style="margin-left: 30px; margin-top: 10px;">
+            <li><span contenteditable="true">Копия паспорта</span></li>
+            <li><span contenteditable="true">Выписка из ЕГРН на земельный участок</span></li>
+            <li><span contenteditable="true">Копия предыдущего уведомления</span></li>
+            <li><span contenteditable="true"></span></li>
+            <li><span contenteditable="true"></span></li>
+            <li><span contenteditable="true"></span></li>
+        </ol>
+
+        <div class="fixed-line"></div>
+        <p class="small-text" style="margin-top: 5px;">
+            (документы, предусмотренные частью 3 статьи 51.1 Градостроительного кодекса Российской Федерации (Собрание
+            законодательства Российской Федерации, 2005,№ 1, ст. 16; 2018, № 32, ст. 5133, 5135)
+        </p>
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script>
+        let editMode = false;
+        const toggleBtn = document.getElementById('toggleEditBtn');
+        const allEditables = document.querySelectorAll('[contenteditable="true"]');
+
+        function setEditMode(enable) {
+            allEditables.forEach(el => {
+                el.setAttribute('contenteditable', enable);
+            });
+            editMode = enable;
+            toggleBtn.textContent = editMode ? '🔒 Завершить редактирование' : '✏️ Редактировать поля';
+            toggleBtn.style.backgroundColor = editMode ? '#27ae60' : '#c0392b';
+        }
+
+        setEditMode(false);
+
+        toggleBtn.addEventListener('click', () => {
+            setEditMode(!editMode);
+        });
+
+        const schemeFrame = document.getElementById('schemeFrame');
+        const imageUpload = document.createElement('input');
+        imageUpload.type = 'file';
+        imageUpload.accept = 'image/*';
+        imageUpload.style.display = 'none';
+
+        if (schemeFrame) {
+            schemeFrame.addEventListener('click', () => {
+                imageUpload.click();
+            });
+        }
+
+        imageUpload.addEventListener('change', function (e) {
+            const file = e.target.files[0];
+            if (file && file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = function (ev) {
+                    const existingImg = schemeFrame.querySelector('img');
+                    if (existingImg) existingImg.remove();
+                    const img = document.createElement('img');
+                    img.src = ev.target.result;
+                    schemeFrame.innerHTML = '';
+                    schemeFrame.appendChild(img);
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        document.getElementById('downloadPdfBtn').addEventListener('click', function () {
+            const element = document.getElementById('pdfContent');
+            const opt = {
+                margin: [0.3, 0.3, 0.3, 0.3],
+                filename: 'Uvedomlenie_Izmenenie_Parametrov.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2, letterRendering: true, useCORS: true, logging: false },
+                jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+            };
+            html2pdf().set(opt).from(element).save();
+        });
+
+        document.body.appendChild(imageUpload);
+
+        // ========== АВТОМАТИЧЕСКАЯ СИНХРОНИЗАЦИЯ ПОЛЕЙ ==========
+        function syncFullName() {
+            const mainFullName = document.querySelector('[data-field="fullname"]');
+            if (!mainFullName) return;
+
+            const currentFullName = mainFullName.innerText.trim();
+            document.querySelectorAll('[data-field="fullname"]').forEach(el => {
+                if (el.innerText.trim() !== currentFullName) {
+                    el.innerText = currentFullName;
+                }
+            });
+
+            const parts = currentFullName.split(/\s+/);
+            let initials = '';
+            if (parts.length >= 2) {
+                const lastName = parts[0];
+                const firstNameInitial = parts[1].charAt(0) + '.';
+                const middleInitial = parts[2] ? parts[2].charAt(0) + '.' : '';
+                initials = `${lastName} ${firstNameInitial}${middleInitial}`;
+            } else {
+                initials = currentFullName;
+            }
+
+            document.querySelectorAll('[data-field="initials"]').forEach(el => {
+                if (el.innerText.trim() !== initials) {
+                    el.innerText = initials;
+                }
+            });
+        }
+
+        function syncObjectType() {
+            const mainObjectType = document.querySelector('[data-field="object-type"]');
+            if (!mainObjectType) return;
+
+            const currentType = mainObjectType.innerText.trim();
+            document.querySelectorAll('[data-field="object-type"]').forEach(el => {
+                if (el.innerText.trim() !== currentType) {
+                    el.innerText = currentType;
+                }
+            });
+        }
+
+        const mainFullNameField = document.querySelector('[data-field="fullname"]');
+        if (mainFullNameField) {
+            mainFullNameField.addEventListener('blur', syncFullName);
+            mainFullNameField.addEventListener('keyup', syncFullName);
+        }
+
+        const mainObjectTypeField = document.querySelector('[data-field="object-type"]');
+        if (mainObjectTypeField) {
+            mainObjectTypeField.addEventListener('blur', syncObjectType);
+            mainObjectTypeField.addEventListener('keyup', syncObjectType);
+        }
+
+        syncFullName();
+        syncObjectType();
+    </script>
+</body>
+
+</html>

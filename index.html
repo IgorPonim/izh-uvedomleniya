@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Формы уведомлений ИЖС — 591/пр</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #e0e0e0 0%, #c0c0c0 100%);
+            font-family: 'Segoe UI', 'Times New Roman', Times, serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 100%;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 14px;
+            color: #555;
+        }
+
+        .cards {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+            justify-content: center;
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            width: 260px;
+            padding: 24px 20px;
+            text-align: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+            text-decoration: none;
+            color: #333;
+            display: block;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+        }
+
+        .card-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .card-desc {
+            font-size: 13px;
+            color: #666;
+            line-height: 1.4;
+        }
+
+        .card.draft {
+            border-top: 5px solid #3498db;
+        }
+
+        .card.change {
+            border-top: 5px solid #e67e22;
+        }
+
+        .card.complete {
+            border-top: 5px solid #27ae60;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            font-size: 12px;
+            color: #555;
+            background: white;
+            padding: 16px;
+            border-radius: 40px;
+            opacity: 0.8;
+        }
+
+        @media (max-width: 700px) {
+            .cards {
+                gap: 16px;
+            }
+            .card {
+                width: 100%;
+                max-width: 280px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📄 Уведомления по форме №591/пр</h1>
+            <p>Выберите нужный документ — заполните в браузере, скачайте PDF и подайте в Департамент архитектуры</p>
+        </div>
+
+        <div class="cards">
+            <a href="pril1_plan.html" class="card draft">
+                <div class="card-icon">📋</div>
+                <div class="card-title">Приложение №1</div>
+                <div class="card-desc">Уведомление о планируемом строительстве или реконструкции</div>
+                <div style="margin-top: 12px; font-size:11px; color:#3498db;">⬇️ Заполнить →</div>
+            </a>
+
+            <a href="pril4_izmenenie.html" class="card change">
+                <div class="card-icon">✏️</div>
+                <div class="card-title">Приложение №4</div>
+                <div class="card-desc">Уведомление об изменении параметров планируемого строительства</div>
+                <div style="margin-top: 12px; font-size:11px; color:#e67e22;">⬇️ Заполнить →</div>
+            </a>
+
+            <a href="pril5_okonchanie.html" class="card complete">
+                <div class="card-icon">✅</div>
+                <div class="card-title">Приложение №5</div>
+                <div class="card-desc">Уведомление об окончании строительства или реконструкции</div>
+                <div style="margin-top: 12px; font-size:11px; color:#27ae60;">⬇️ Заполнить →</div>
+            </a>
+        </div>
+
+        <div class="footer">
+            🔒 Все данные остаются на вашем компьютере. PDF создаётся локально.<br>
+            📌 Реквизиты госпошлины, подписи и печати — после заполнения проверьте вручную перед подачей.
+        </div>
+    </div>
+</body>
+</html>
