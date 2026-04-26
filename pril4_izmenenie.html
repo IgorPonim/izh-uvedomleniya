@@ -141,6 +141,10 @@
             font-size: 12pt;
         }
 
+        .smallBold {
+            font-size: 6;
+        }
+
         .department-description {
             text-align: center;
             font-size: 10pt;
@@ -277,7 +281,8 @@
 <body>
 
     <div class="toolbar">
-        <a href="index.html" style="text-decoration: none;"><button style="background-color: #2980b9;">🏠 На главную</button></a>
+        <a href="index.html" style="text-decoration: none;"><button style="background-color: #2980b9;">🏠 На
+                главную</button></a>
         <button id="toggleEditBtn" class="edit-btn">✏️ Редактировать поля</button>
         <button id="downloadPdfBtn">📄 Скачать PDF</button>
     </div>
@@ -402,9 +407,14 @@
             <thead>
                 <tr>
                     <th style="width:10%">№</th>
-                    <th style="width:35%">Наименование параметра</th>
-                    <th style="width:25%">Значение, указанное в ранее направленном уведомлении</th>
-                    <th style="width:30%">Новое значение</th>
+                    <th style="width:30%;font-size: 10pt;" >Наименование параметров планируемого строительства или
+                        реконструкции объекта индивидуального жилищного строительства или садового дома</th>
+                    <th style="width:35%; font-size: 10pt;" >Значения параметров планируемого строительства или
+                        реконструкции объекта индивидуального жилищного строительства или садового дома, указанные в
+                        уведомлении о планируемых строительстве или реконструкции объекта индивидуального жилищного
+                        строительства или садового дома</th>
+                    <th style="width:25%; font-size: 10pt;" >Измененные значения параметров планируемого строительства
+                        или реконструкции объекта индивидуального жилищного строительства или садового дома</th>
                 </tr>
             </thead>
             <tbody>
